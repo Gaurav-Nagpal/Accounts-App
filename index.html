@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Account Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link data-require="bootstrap@*" data-semver="4.0.5" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="script.js"></script>
+  <link rel="stylesheet/less" type="text/css" href="style.less" />
+  <script data-require="less.js@*" data-semver="1.7.5" src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.5/less.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body ng-app="AccountsModule">
+  <div ng-controller="AccountsController">
+    <div class="container">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-xs-6 headerColor" ng-class="orderByField == 'id'? 'headerBackgroundColor': 'headerBackgroundLightColor'" ng-click="orderByField='id'; reverseSort = !reverseSort">Account ID
+                <span class="fa columnSortIcons" ng-show="orderByField == 'id'" ng-class="reverseSort?'fa-sort-down':'fa-sort-up'"></span>
+              </th>
+              <th class="col-xs-6 text-right" ng-class="orderByField == 'availableCash'? 'headerBackgroundColor': 'headerBackgroundLightColor'" ng-click="orderByField='availableCash'; reverseSort = !reverseSort">
+                <span class="headerColor">Available Cash</span>
+                <br />
+                <span class="headerLightColor">Today's Change</span>
+                <span class="fa columnSortIcons" ng-show="orderByField == 'availableCash'" ng-class="reverseSort?'fa-sort-down':'fa-sort-up'"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="account in accountDetails | orderBy:sortFunction:reverseSort | limitTo:limit:begin">
+              <td class="accountId boldFont">{{ account.id }}</td>
+              <td class="boldFont text-right">
+                <span>{{ account.availableCash | currency:'$':2 }}</span>
+                <br />
+                <span class="smallFonts" ng-class="{'amountPositiveChange' : account.changePercent > 0, 'amountNegativeChange' : account.changePercent < 0, 'amountNoChange' : account.changePercent == 0}">
+            {{ account.changePercent | percentChangeFilter }} / {{ account.changeAbsolute | currency:'$':2 }}
+            </span>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td class="footerColor"><span ng-click="loadMoreData()" ng-class="{isdisabled : loadDisabled}">Load More</span></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

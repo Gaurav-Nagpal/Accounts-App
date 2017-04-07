@@ -1,0 +1,65 @@
+@backgroundColor :#0F8EC7;
+@headerColor :black;
+@headerLightColor: gray;
+@backgroundColorTable :white;
+@headerBackgroundDarkColor :#EFEFEF;
+
+body {
+    background-color: @backgroundColor;
+    padding: 10px 4px 10px 4px;
+}
+
+.smallFonts{
+  font-size : 12px;
+}
+
+.boldFont{
+  font-weight: bold;
+}
+
+.headerColor{
+  color : @headerColor;
+}
+
+.headerLightColor{
+  color : lighten(@headerLightColor, 10%);
+}
+
+.headerBackgroundColor{
+  background-color: @headerBackgroundDarkColor;
+}
+
+.headerBackgroundLightColor{
+  background-color: lighten(@headerBackgroundDarkColor, 3%);
+}
+
+.accountId{
+  color: lighten(@backgroundColor, 1%);
+  opacity: 1.0;
+}
+
+.footerColor{
+  .accountId();
+   font-weight: bold;
+}
+
+table{
+  background-color: @backgroundColorTable;
+}
+
+.amountPositiveChange{
+  color: green !important;
+}
+
+.amountNegativeChange{
+  color: red;
+}
+
+.amountNoChange{
+  color: gray;
+}
+
+.isdisabled {
+    opacity: .5;
+    pointer-events: none;
+}
